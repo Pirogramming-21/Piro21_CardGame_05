@@ -1,3 +1,5 @@
+@import url('https://webfontworld.github.io/t money/TmoneyRoundWind.css');
+
 :root {
     --primary-color: #0077be;
     --secondary-color: #00a86b;
@@ -15,7 +17,7 @@ html {
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family : 'TmoneyRoundWind';
     line-height: 1.6;
     color: var(--text-color);
     background-color: transparent;
@@ -138,6 +140,15 @@ footer {
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
+.signup-section {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.signup-section p {
+    margin-bottom: 0.5rem;
+}
+
 .card {
     display: inline-block;
     width: 60px;
@@ -191,6 +202,18 @@ footer {
 #game-list tr:hover, #ranking tr:hover {
     transform: scale(1.02);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.fixed-footer-text {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 14px;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.8); /* 배경색을 통해 가독성 향상 */
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 @keyframes float {

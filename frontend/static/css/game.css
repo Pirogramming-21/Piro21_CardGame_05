@@ -1,0 +1,104 @@
+.game-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.current-player, .game-history, .counter-attack-list, .game-info {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .game-history, .counter-attack-list {
+        width: 48%;
+    }
+}
+
+.game-history table, .counter-attack-list table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+
+.game-history th, .game-history td,
+.counter-attack-list th, .counter-attack-list td {
+    padding: 15px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+}
+
+.game-history th, .counter-attack-list th {
+    background-color: rgba(0, 119, 190, 0.8);
+    color: white;
+}
+
+.game-history tr, .counter-attack-list tr {
+    transition: all 0.3s;
+}
+
+.game-history tr:hover, .counter-attack-list tr:hover {
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.game-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.card-selection {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.card {
+    width: 60px;
+    height: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    font-size: 24px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.card.selected {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+#game-detail-content {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+#game-detail-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+#game-detail-content p {
+    margin-bottom: 5px;
+}
+
+.counter-attack-container {
+    text-align: center;
+}

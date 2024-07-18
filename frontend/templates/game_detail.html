@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 정보</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="../static/css/game.css">
+</head>
+<body>
+    <header>
+        <div>
+            <h1 class="floating">🃏 숫자 카드 게임 🎮</h1>
+        </div>
+        <nav id="main-nav">
+            <a href="game_start.html" class="btn">게임하기</a>
+            <a href="ranking.html" class="btn">랭킹보기</a>
+            <a href="#" class="btn" onclick="GameApp.logout(); return false;">로그아웃</a>
+        </nav>        
+    </header>
+
+    <main id="main-content">
+        <h2>게임 정보</h2>
+        <div id="game-detail-content">
+            <!-- 게임 정보가 여기에 동적으로 삽입됩니다 -->
+        </div>
+        <div class="game-actions">
+            <button id="cancel-game-btn" class="btn">게임 취소</button>
+            <button id="counter-attack-btn" class="btn">대응하기</button>
+            <a href="game_list.html" class="btn">전체 목록</a>
+        </div>
+    </main>
+
+    <div class="fixed-footer-text">
+        🍀피로그래밍 21기 카드게임 5조🍀
+    </div>
+
+    <script src="../static/js/game.js"></script>
+    <script src="../static/js/game.js"></script>
+</body>
+</html>
