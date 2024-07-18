@@ -1,79 +1,176 @@
+@import url('https://webfontworld.github.io/t money/TmoneyRoundWind.css');
+
+:root {
+    --primary-color: #0077be;
+    --secondary-color: #00a86b;
+    --background-color: #e0f7fa;
+    --text-color: #333;
+    --accent-color: #ffd700;
+}
+
+html {
+    height: 100%;
+    background-image: url('../images/summer_ocean.png');
+    background-size: cover;
+    background-position: bottom;
+    background-attachment: fixed;
+}
+
+body {
+    font-family: 'TmoneyRoundWind';
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(224, 247, 250, 0.7) 0%, rgba(179, 229, 252, 0.7) 100%);
+    z-index: -1;
+}
+
+header {
+    background-color: rgba(0, 119, 190, 0.8);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+main {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+main::before {
+    content: '🌴';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    font-size: 5rem;
+    opacity: 0.1;
+    transform: rotate(-30deg);
+}
+
+main::after {
+    content: '🌊';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 5rem;
+    opacity: 0.1;
+    transform: rotate(30deg);
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.btn:hover {
+    background-color: #ffc400;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.btn-small {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
+}
+
 .game-list-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    margin-top: 20px;
 }
 
-.current-player, .game-history, .counter-attack-list, .game-info {
-    width: 100%;
-    margin-bottom: 20px;
+.game-history, .counter-attack-list, .game-info {
+    flex: 1 1 100%;
+    margin: 10px 0;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-@media (min-width: 768px) {
-    .game-history, .counter-attack-list {
-        width: 48%;
-    }
-}
-
-.game-history table, .counter-attack-list table {
+table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 10px;
+    margin-top: 20px;
 }
 
-.game-history th, .game-history td,
-.counter-attack-list th, .counter-attack-list td {
+th, td {
     padding: 15px;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 5px;
 }
 
-.game-history th, .counter-attack-list th {
+th {
     background-color: rgba(0, 119, 190, 0.8);
     color: white;
 }
 
-.game-history tr, .counter-attack-list tr {
+tr {
     transition: all 0.3s;
 }
 
-.game-history tr:hover, .counter-attack-list tr:hover {
+tr:hover {
     transform: scale(1.02);
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.game-actions {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
 }
 
 .card-selection {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
     margin: 20px 0;
 }
 
 .card {
+    display: inline-block;
     width: 60px;
     height: 90px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin: 10px;
     background-color: white;
     border: 2px solid var(--primary-color);
     border-radius: 10px;
     font-size: 24px;
+    line-height: 90px;
     cursor: pointer;
     transition: all 0.3s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) rotate(5deg);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
@@ -83,22 +180,60 @@
     transform: scale(1.1);
 }
 
-#game-detail-content {
-    background-color: rgba(255, 255, 255, 0.8);
+#game-result {
+    background-color: rgba(255, 255, 255, 0.9);
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 20px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-top: 20px;
 }
 
-#game-detail-content h3 {
-    color: var(--primary-color);
-    margin-bottom: 10px;
-}
-
-#game-detail-content p {
-    margin-bottom: 5px;
-}
-
-.counter-attack-container {
+footer {
+    background-color: rgba(0, 168, 107, 0.8);
+    color: white;
     text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+.fixed-footer-text {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 14px;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .game-history, .counter-attack-list, .game-info {
+        flex: 1 1 100%;
+    }
+
+    .card {
+        width: 50px;
+        height: 75px;
+        font-size: 20px;
+        line-height: 75px;
+    }
 }
