@@ -11,5 +11,9 @@
         <button type="submit">Login</button>
     </form>
     <p><a href="{% url 'users:signup' %}">Don't have an account? Signup here</a></p>
+    <hr>
+    {% load socialaccount %}
+    <a href="{% provider_login_url 'naver' %}">네이버로 로그인</a>
 </body>
 </html>
+

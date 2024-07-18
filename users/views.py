@@ -3,6 +3,7 @@ from django.contrib.auth import login as auth_login, logout as auth_logout, auth
 from django.contrib.auth.decorators import login_required
 from .forms import UserCreateForm, LoginForm
 
+
 def main(request):
     return render(request, 'index.html')
 
@@ -27,6 +28,7 @@ def login_view(request):
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
+
 
 @login_required
 def logout_view(request):
