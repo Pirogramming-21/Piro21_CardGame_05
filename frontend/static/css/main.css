@@ -1,3 +1,5 @@
+@import url('https://webfontworld.github.io/t money/TmoneyRoundWind.css');
+
 :root {
     --primary-color: #0077be;
     --secondary-color: #00a86b;
@@ -15,7 +17,7 @@ html {
 }
 
 body {
-    font-family: 'Arial', sans-serif;
+    font-family : 'TmoneyRoundWind';
     line-height: 1.6;
     color: var(--text-color);
     background-color: transparent;
@@ -136,6 +138,15 @@ footer {
     background-color: #ffc400;
     transform: translateY(-3px);
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.signup-section {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.signup-section p {
+    margin-bottom: 0.5rem;
 }
 
 .card {

@@ -39,15 +39,12 @@ const GameApp = (function() {
                 <a href="#" class="btn" onclick="GameApp.showLoginForm(); return false;">로그인</a>
             `;
             mainContent.innerHTML = `
-                <h2 class="floating">🃏 숫자 카드 게임 🎮</h2>
+                <h2>환영합니다!</h2>
                 <p>게임을 시작하려면 로그인해주세요.</p>
             `;
         }
     }
     
-    
-    
-
     function showLoginForm() {
         const mainContent = document.getElementById('main-content');
         mainContent.innerHTML = `
@@ -62,9 +59,66 @@ const GameApp = (function() {
                 <button onclick="GameApp.socialLogin('naver')" class="btn">Naver</button>
                 <button onclick="GameApp.socialLogin('kakao')" class="btn">Kakao</button>
             </div>
+            <div class="signup-section">
+                <p>계정이 없으신가요?</p>
+                <button class="btn" onclick="GameApp.showSignupForm(); return false;">회원가입</button>
+            </div>
         `;
         document.getElementById('login-form').addEventListener('submit', handleLogin);
     }
+    
+    
+    function showSignupForm() {
+        const mainContent = document.getElementById('main-content');
+        mainContent.innerHTML = `
+            <h2>회원가입</h2>
+            <form id="signup-form">
+                <input type="text" id="signup-username" placeholder="사용자 이름" required>
+                <input type="email" id="signup-email" placeholder="이메일" required>
+                <input type="password" id="signup-password1" placeholder="비밀번호" required>
+                <input type="password" id="signup-password2" placeholder="비밀번호 확인" required>
+                <button type="submit" class="btn">회원가입</button>
+            </form>
+            <div class="signup-section">
+                <p>이미 계정이 있으신가요?</p>
+                <button class="btn" onclick="GameApp.showLoginForm(); return false;">로그인</button>
+            </div>
+        `;
+        document.getElementById('signup-form').addEventListener('submit', handleSignup);
+    }
+    
+    
+    function handleSignup(event) {
+        event.preventDefault();
+        const username = document.getElementById('signup-username').value;
+        const email = document.getElementById('signup-email').value;
+        const password1 = document.getElementById('signup-password1').value;
+        const password2 = document.getElementById('signup-password2').value;
+    
+        if (password1 !== password2) {
+            alert('비밀번호가 일치하지 않습니다.');
+            return;
+        }
+    
+        fetch('/api/signup', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, email, password: password1 })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('회원가입 성공! 로그인 해주세요.');
+                GameApp.showLoginForm();
+            } else {
+                alert('회원가입 실패: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('회원가입 오류:', error);
+        });
+    }
+    
 
     function handleLogin(event) {
         event.preventDefault();
@@ -219,6 +273,7 @@ const GameApp = (function() {
         startGame: startGame,
         showGameList: showGameList,
         showRanking: showRanking,
+        showSignupForm: showSignupForm // 추가
     };
 })();
 
