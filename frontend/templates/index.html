@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숫자 카드 게임</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+</head>
+<body>
+    <header>
+        <div>
+            <h1 class="floating">🃏 숫자 카드 게임 🎮</h1>
+        </div>
+        <nav id="main-nav">
+            <a href="game_start.html" class="btn">게임 시작</a>
+            <a href="game_list.html" class="btn">게임 전적</a>
+            <a href="ranking.html" class="btn">랭킹</a>
+            <a href="#" class="btn" onclick="GameApp.logout(); return false;">로그아웃</a>
+        </nav>        
+    </header>
+
+    <main id="main-content" role="main">
+        <!-- 메인 콘텐츠는 로그인 상태에 따라 동적으로 변경될 것입니다 -->
+    </main>
+
+    <footer>
+        <p>&copy; 2024 숫자 카드 게임. All rights reserved.</p>
+    </footer>
+
+    <script src="../static/js/main.js"></script>
+</body>
+</html>
