@@ -6,5 +6,17 @@
 </head>
 <body>
 
+{% if game.completed %}
+    <p> 각각의 유저 숫자들, text, score, 전적모록 game_result.result </p>
+
+
+{% elif not game.completed %}
+    {% if user == game.attacker %}
+        <p>진행중 그리고 전적목록 그리고 해당 본인 번호 그리고 취소 뜨고 </p>
+    {% elif user == game.defender %}
+        <p>대응하기 하고 전적목록 뜨기</p>
+    {% endif %}
+{% endif %}
+
 </body>
 </html>

@@ -6,5 +6,46 @@
 </head>
 <body>
 
+{% for attack in games_attack %}
+    {% if not attack.completed %}
+        <p> 매칭이 되지 않은거니깐 진행중!! 취소할수있음 delete  즉 attack.pk 주기</p>
+    {% elif attack.completed %}
+
+        {% for results in result %}
+
+            {% if attack.id == results.game %}
+                {% if results.result %}
+                    <p> 무승부</p>
+                {% elif attack.attacker == results.winner and attack.defender == results.loser %}
+
+                    <p> 승리</p>
+                {% elif attack.attacker == results.loser and attack.defender == results.winner %}
+
+                    <p>패배</p>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+{% endfor %}
+
+{% for defense in games_defense %}
+    {% if not defense.completed %}
+        <p>매칭이 안됐으니깐 반격! defense.pk 줘야됨 </p>
+
+    {% elif defense.completed %}
+        {% for results in result %}
+            {% if defense.id == results.game %}
+                {% if results.result %}
+                    <p> 무승부</p>
+                {% elif defense.attacker == results.winner and defense.defender == results.loser %}
+                    <p> 패배 </p>
+                {% elif defense.attacker == results.loser and defense.defender == results.winner %}
+                    <p> 승리 </p>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+{% endfor %}
 </body>
 </html>

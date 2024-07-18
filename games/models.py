@@ -18,3 +18,5 @@ class Game_Result(models.Model):
     loser = models.ForeignKey(User, related_name='lose_user', null=True, blank=True, on_delete=models.SET_NULL)
     winner_points = models.IntegerField(default=0)
     loser_points = models.IntegerField(default=0)
+    result = models.BooleanField(default=False)
+    message = models.CharField(max_length=30)

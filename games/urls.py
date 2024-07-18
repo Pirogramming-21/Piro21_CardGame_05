@@ -8,7 +8,8 @@ urlpatterns = [
     path('list', game_list, name='game_list'),
     path('attack', game_attack, name='game_attack'),
     path('detail/int<pk>', game_detail, name='game_detail'),
-    path('defender', game_defender, name='game_defender'),
-    path('rank', game_rank, name='game_rank')
+    path('defender/int<pk>', game_defender, name='game_defender'),
+    path('rank', game_rank, name='game_rank'),
+    path('delete/int<pk>', game_delete, name='game_delete')
 
 ]
