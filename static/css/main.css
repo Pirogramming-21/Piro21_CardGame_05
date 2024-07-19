@@ -1,0 +1,171 @@
+@import url('https://webfontworld.github.io/tmoney/TmoneyRoundWind.css');
+
+:root {
+    --primary-color: #0077be;
+    --secondary-color: #00a86b;
+    --background-color: #e0f7fa;
+    --text-color: #333;
+    --accent-color: #ffd700;
+}
+
+html {
+    height: 100%;
+    background-image: url('../images/summer_ocean.png');
+    background-size: cover;
+    background-position: bottom;
+    background-attachment: fixed;
+}
+
+body {
+    font-family: 'TmoneyRoundWind';
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: transparent;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(224, 247, 250, 0.7) 0%, rgba(179, 229, 252, 0.7) 100%);
+    z-index: -1;
+}
+
+header {
+    background-color: rgba(0, 119, 190, 0.8);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+main {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 2rem auto;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+}
+
+main::before {
+    content: '🌴';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    font-size: 5rem;
+    opacity: 0.1;
+    transform: rotate(-30deg);
+}
+
+main::after {
+    content: '🌊';
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    font-size: 5rem;
+    opacity: 0.1;
+    transform: rotate(30deg);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+input {
+    width: 100%;
+    max-width: 300px;
+    padding: 0.5rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.btn {
+    font-family: 'TmoneyRoundWind';
+    font-size: 14px;
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: all 0.3s;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin: 0.5rem;
+}
+
+.btn:hover {
+    background-color: #ffc400;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 15px;
+}
+
+.signup-section {
+    text-align: center;
+}
+
+.signup-section p {
+    font-size: 14px;
+    margin-bottom: 0.5rem;
+}
+
+.fixed-footer-text {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    font-size: 14px;
+    color: #000;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 5px 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.helptext {
+    display: block;
+    margin-top: 5px; /* 도움말 텍스트와 입력 필드 사이에 약간의 여백 추가 */
+    font-size: 12px; /* 도움말 텍스트 크기 조정 */
+    color: #555; /* 도움말 텍스트 색상 조정 */
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+.floating {
+    animation: float 3s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+        margin: 1rem;
+    }
+}

@@ -26,4 +26,4 @@ urlpatterns = [
     path('', include('users.urls')),
     path('/', include('games.urls')),
     path('accounts/', include('allauth.urls')),  # allauth 관련 URL
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)       
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
