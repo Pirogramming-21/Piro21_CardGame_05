@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숫자 카드 게임</title>
+    <link rel="stylesheet" href="{% static 'css/member.css' %}">
+</head>
+<body>
+<header>
+    <div>
+        <a href="/" style="text-decoration: none; color: white">
+        <h1 id="숫자-카드-게임" class="floating">🃏 숫자 카드 게임 🎮</h1>
+        </a>
+    </div>
+</header>
+<main id="main-content" role="main">
+    <h2>로그인</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">로그인</button>
+    </form>
+    <div class="social-login">
+        {% load socialaccount %}
+
+        <a href="{% provider_login_url 'naver'  %}" class="social-btn">
+            <img src="{% static 'images/네이버_앱(App)_로고_아이콘.png' %}" alt="Naver"
+                 style="width: 40px; height: auto; padding: 0px 10px 0px 10px;">
+        </a>
+
+    </div>
+    <div class="signup-section">
+        <p>계정이 없으신가요?</p>
+        <a href="{% url 'users:signup' %}" class="btn">회원가입</a>
+    </div>
+    <div>
+        <a href="{% url 'games:main' %}" class="btn">메인으로 돌아가기</a>
+    </div>
+</main>
+<div class="fixed-footer-text">
+    🍀피로그래밍 21기 카드게임 5조🍀
+</div>
+</body>
+</html>

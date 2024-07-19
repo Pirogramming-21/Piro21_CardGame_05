@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>랭킹</title>
+    <link rel="stylesheet" href="../static/css/main.css">
+    <link rel="stylesheet" href="https://webfontworld.github.io/tmoney/TmoneyRoundWind.css">
+</head>
+<style>
+    table thead {
+        background-color: white; /* 원하는 색상으로 변경 */
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        font-weight: bold;
+    }
+</style>
+<body>
+<header>
+    <div>
+        <a href="/" style="text-decoration: none; color: white">
+            <h1 class="floating">🏆 랭킹 🥇</h1>
+        </a>
+    </div>
+    <nav id="main-nav">
+        <a href="{% url 'games:main' %}" class="btn">홈</a>
+        <a href="{% url 'games:game_attack' %}" class="btn">게임 시작</a>
+        <a href="{% url 'games:game_list' %}" class="btn">게임 전적</a>
+        <a href="{% url 'games:game_rank' %}" class="btn">랭킹</a>
+        <a href="{% url 'users:logout' %}" class="btn" onclick="GameApp.logout(); return false;">로그아웃</a>
+    </nav>
+</header>
+
+<main id="main-content" role="main">
+    <div id="ranking">
+        <h2>랭킹</h2>
+        <table>
+            <thead>
+            <tr>
+                <th style="background-color: skyblue;">순위</th>
+                <th style="background-color: skyblue;">사용자</th>
+                <th style="background-color: skyblue;">점수</th>
+            </tr>
+            </thead>
+            <tbody id="ranking-body">
+            {% for users in user %}
+                <tr>
+                    <th>{{ forloop.counter }}</th> <!-- 순위 -->
+                    <th>{{ users.username }}</th>
+                    <th>{{ users.points }}</th>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        {% for user in users %}
+            <p>{{ user }}</p>
+
+        {% endfor %}
+    </div>
+</main>
+
+<div class="fixed-footer-text">
+    🍀피로그래밍 21기 카드게임 5조🍀
+</div>
+
+</body>
+</html>

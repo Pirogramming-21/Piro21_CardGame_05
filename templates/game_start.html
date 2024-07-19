@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 시작</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://webfontworld.github.io/tmoney/TmoneyRoundWind.css">
+    <style>
+        /* 라디오 버튼을 숨깁니다 */
+        input[type="radio"] {
+            display: none;
+        }
+
+        #opponent-selection {
+            margin-top: 15px;
+            margin-left: 250px;
+            margin-bottom: 55px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+             position: relative; /* 화살표와의 정렬을 위해 position 추가 */
+
+        }
+
+        #opponent-selection h3 {
+            margin: 0 0 20px;
+            color: #333;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        /* 셀렉트 박스 스타일 */
+        #opponent-list {
+            appearance: none; /* 기본 브라우저 스타일 제거 */
+            -webkit-appearance: none; /* Safari 및 Chrome의 기본 스타일 제거 */
+            -moz-appearance: none; /* Firefox의 기본 스타일 제거 */
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 10px 40px 10px 15px; /* 오른쪽 패딩을 더 주어 화살표와 텍스트 사이에 공간을 만듭니다. */
+            font-size: 16px;
+            color: #333;
+            width: 100%;
+            cursor: pointer;
+            outline: none;
+            transition: border-color 0.3s;
+            position: relative;
+        }
+
+        /* 선택된 옵션 박스에 대한 스타일 */
+        #opponent-list:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 2px rgba(38, 143, 255, 0.2);
+        }
+
+        /* 드롭다운 화살표 커스터마이징 */
+        #opponent-list::-ms-expand {
+            display: none; /* IE에서 드롭다운 화살표 제거 */
+        }
+
+        /* 드롭다운 화살표 추가 */
+        #opponent-list::after {
+            content: '▼'; /* 커스텀 화살표 기호 */
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div>
+        <a href="/" style="text-decoration: none; color: white">
+            <h1 class="floating">🕹️ 게임 시작 🎇</h1>
+        </a>
+    </div>
+    <nav id="main-nav">
+        <a href="{% url 'games:main' %}" class="btn">홈</a>
+        <a href="{% url 'games:game_attack' %}" class="btn">게임 시작</a>
+        <a href="{% url 'games:game_list' %}" class="btn">게임 전적</a>
+        <a href="{% url 'games:game_rank' %}" class="btn">랭킹</a>
+        <a href="{% url 'users:logout' %}" class="btn" onclick="GameApp.logout(); return false;">로그아웃</a>
+    </nav>
+</header>
+
+<main id="main-content" role="main">
+    <div id="game-start">
+        <h2>게임 시작</h2>
+        <form action="{% url 'games:game_attack' %}" method="post">
+            {% csrf_token %}
+            <div id="card-selection">
+                <h3 class="floating">카드 선택</h3>
+                <div id="cards">
+                    {% for num in random_num %}
+                        <label>
+                            <div class="card">
+
+                                <input type="radio" name="attacker_card"
+
+                                       value="{{ num }}" required> {{ num }}
+                            </div>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+        
+            <div id="opponent-selection">
+                <h3>상대 선택</h3>
+                <select id="opponent-list" name="opponent" required>
+                    <option value="">상대를 선택하세요</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button id="start-game-btn" class="btn">결투 신청</button>
+        </form>
+    </div>
+</main>
+
+<div class="fixed-footer-text">
+    🍀피로그래밍 21기 카드게임 5조🍀
+</div>
+
+</body>
+<script>
+    // 카드 클릭 이벤트 처리
+    document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', function () {
+            // 선택된 카드의 값을 가져오기
+            const value = this.querySelector('input').value;
+
+            // 모든 카드에서 'selected' 클래스를 제거
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+
+            // 선택된 카드에 'selected' 클래스 추가
+            this.classList.add('selected');
+
+            // 선택된 라디오 버튼 체크
+            this.querySelector('input').checked = true;
+        });
+    });
+</script>
+</html>
