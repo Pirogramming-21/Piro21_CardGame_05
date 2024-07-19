@@ -1,10 +1,48 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>숫자 카드 게임</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://webfontworld.github.io/tmoney/TmoneyRoundWind.css">
 </head>
-<body>
 
+<body>
+<header>
+    <div>
+        <h1 id="숫자-카드-게임" class="floating">🃏 숫자 카드 게임 🎮</h1>
+    </div>
+    <nav>
+
+        {% if not user.is_authenticated %}
+            <a href="{% url 'users:login' %}" class="btn">로그인</a>
+            <a href="{% url 'users:signup' %}" class="btn">회원가입</a>
+        {% else %}
+            <a href="{% url 'games:game_attack' %}" class="btn">게임하기</a>
+            <a href="{% url 'games:game_list' %}" class="btn">게임 전적</a>
+            <a href="{% url 'games:game_rank' %}" class="btn">랭킹보기</a>
+            <a href="{% url 'users:logout' %}" class="btn">로그아웃</a>
+        {% endif %}
+    </nav>
+</header>
+
+<main id="main-content" role="main">
+    {% if not user.is_authenticated %}
+        <h2>환영합니다!</h2>
+        <p>게임을 시작하려면 로그인해주세요.</p>
+    {% else %}
+        <h2>환영합니다, {{ user.username }}님!</h2>
+        <p>게임을 즐겨보세요💫</p>
+    {% endif %}
+</main>
+
+<footer>
+    <p>© 2024 숫자 카드 게임. All rights reserved.</p>
+    <div class="fixed-footer-text">
+        🍀피로그래밍 21기 카드게임 5조🍀
+    </div>
+</footer>
 </body>
 </html>

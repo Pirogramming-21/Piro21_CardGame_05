@@ -1,22 +1,77 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/game.css' %}">
 </head>
 <body>
 
-{% if game.completed %}
-    <p> 각각의 유저 숫자들, text, score, 전적모록 game_result.result </p>
+
+<header>
+    <div>
+        <a href="/" style="text-decoration: none; color: white">
+            <h1 class="floating">🕹️ 게임 시작 🎇</h1>
+        </a>
+    </div>
+    <nav id="main-nav">
+        <a href="{% url 'games:main' %}" class="btn">홈</a>
+        <a href="{% url 'games:game_attack' %}" class="btn">게임 시작</a>
+        <a href="{% url 'games:game_list' %}" class="btn">게임 전적</a>
+        <a href="{% url 'games:game_rank' %}" class="btn">랭킹</a>
+        <a href="{% url 'users:logout' %}" class="btn" onclick="GameApp.logout(); return false;">로그아웃</a>
+    </nav>
+</header>
+
+<main id="main-content">
+    <h2>게임 정보</h2>
+    <div id="game-detail-content">
+        {% if game.completed %}
+            <p>{{ game.attacker }} vs {{ game.defender }}</p>
+            <p> {{ result.result }}</p>
+            <p> {{ game.attacker }} : {{ game.attacker_card }}</p>
+            <p> {{ game.defender }} : {{ game.defender_card }}</p>
+            <p> 결과: {{ text }}  </p>
+            <p> 점수: {{ score }} </p>
 
 
-{% elif not game.completed %}
-    {% if user == game.attacker %}
-        <p>진행중 그리고 전적목록 그리고 해당 본인 번호 그리고 취소 뜨고 </p>
-    {% elif user == game.defender %}
-        <p>대응하기 하고 전적목록 뜨기</p>
-    {% endif %}
-{% endif %}
+        {% elif not game.completed %}
+            {% if user == game.attacker %}
+                <p>진행중 </p>
+                <p>나: {{ game.attacker_card }} </p>
+            {% elif user == game.defender %}
+
+            {% endif %}
+        {% endif %}
+
+    </div>
+    <div class="game-actions">
+        {% if game.completed %}
+            <button id="cancel-game-btn" class="btn">게임 취소</button>
+        {% elif not game.completed %}
+            {% if user == game.attacker %}
+
+                <form action="{% url 'games:game_delete' game.pk %}" method="post"
+                      style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" id="cancel-game-btn" class="btn">취소하기</button>
+                </form>
+
+            {% elif user == game.defender %}
+                <a id="counter-attack-btn" class="btn"
+                   href="{% url 'games:game_defender' game.pk %}">대응하기</a>
+            {% endif %}
+        {% endif %}
+        <a href="{% url 'games:game_list' %}" class="btn">전체 목록</a>
+
+    </div>
+</main>
+
+<div class="fixed-footer-text">
+    🍀피로그래밍 21기 카드게임 5조🍀
+</div>
+
 
 </body>
 </html>

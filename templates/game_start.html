@@ -1,10 +1,63 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게임 시작</title>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://webfontworld.github.io/tmoney/TmoneyRoundWind.css">
 </head>
 <body>
+<header>
+    <div>
+        <a href="/" style="text-decoration: none; color: white">
+            <h1 class="floating">🕹️ 게임 시작 🎇</h1>
+        </a>
+    </div>
+    <nav id="main-nav">
+        <a href="{% url 'games:main' %}" class="btn">홈</a>
+        <a href="{% url 'games:game_attack' %}" class="btn">게임 시작</a>
+        <a href="{% url 'games:game_list' %}" class="btn">게임 전적</a>
+        <a href="{% url 'games:game_rank' %}" class="btn">랭킹</a>
+        <a href="{% url 'users:logout' %}" class="btn" onclick="GameApp.logout(); return false;">로그아웃</a>
+    </nav>
+</header>
+
+<main id="main-content" role="main">
+    <div id="game-start">
+        <h2>게임 시작</h2>
+        <form action="{% url 'games:game_attack' %}" method="post">
+            {% csrf_token %}
+            <div id="card-selection">
+                <h3 class="floating">카드 선택</h3>
+                <div id="cards">
+                    {% for num in random_num %}
+                        <label>
+                            <div class="card">
+                                <input type="radio" name="attacker_card" value="{{ num }}" required> {{ num }}
+                            </div>
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+            <div id="opponent-selection">
+                <h3>상대 선택</h3>
+                <select id="opponent-list" name="opponent" required>
+                    <option value="">상대를 선택하세요</option>
+                    {% for user in users %}
+                        <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button id="start-game-btn" class="btn">게임 시작</button>
+        </form>
+    </div>
+</main>
+
+<div class="fixed-footer-text">
+    🍀피로그래밍 21기 카드게임 5조🍀
+</div>
 
 </body>
 </html>

@@ -1,51 +1,135 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게임전적</title>
+    <link rel="stylesheet" href="{% static 'css/game.css' %}">
 </head>
 <body>
+<header>
+    <div>
+        <h1 class="floating">✏️ 게임 전적 🎲</h1>
+    </div>
+    <nav id="main-nav">
+        <a href="{% url 'games:main' %}" class="btn">홈</a>
+        <a href="{% url 'games:game_attack' %}" class="btn">게임 시작</a>
+        <a href="{% url 'games:game_list' %}" class="btn">게임 전적</a>
+        <a href="{% url 'games:game_rank' %}" class="btn">랭킹</a>
+        <a href="{% url 'users:logout' %}" class="btn" onclick="GameApp.logout(); return false;">로그아웃</a>
+    </nav>
+</header>
 
-{% for attack in games_attack %}
-    {% if not attack.completed %}
-        <p> 매칭이 되지 않은거니깐 진행중!! 취소할수있음 delete  즉 attack.pk 주기</p>
-    {% elif attack.completed %}
+<main id="main-content" role="main">
+    <h2>📍History List📍</h2>
 
-        {% for results in result %}
+    <div class="game-list-container">
+        <div class="current-player">
+            <h3>현재 플레이어: {{ user.username }}</h3>
+        </div>
 
-            {% if attack.id == results.game %}
-                {% if results.result %}
-                    <p> 무승부</p>
-                {% elif attack.attacker == results.winner and attack.defender == results.loser %}
+        <div class="game-history">
+            <h3>게임 전적</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>대결</th>
+                    <th>상태</th>
 
-                    <p> 승리</p>
-                {% elif attack.attacker == results.loser and attack.defender == results.winner %}
+                    <div>
+                        <th>게임 정보</th>
+                        <div id="game-info-content"></div>
+                    </div>
+                </tr>
+                </thead>
+                <tbody id="game-history-body">
+                {% for attack in games_attack %}
+                    {% if not attack.completed %}
+                        <tr>
+                            <th>{{ attack.attacker }} vs {{ attack.defender }}</th>
+                            <th>진행중!!
+                                <form action="{% url 'games:game_delete' attack.pk %}" method="post"
+                                      style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit">취소하기</button>
+                                </form>
+                            </th>
+                            <th><a href="{% url 'games:game_detail' attack.pk %}"> 게임 정보</a></th>
+                        </tr>
+                    {% elif attack.completed %}
+                        {% for results in result %}
 
-                    <p>패배</p>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-{% endfor %}
+                            {% if attack.id == results.game %}
+                                {% if results.result %}
+                                    <tr>
+                                        <th>{{ attack.attacker }} vs {{ attack.defender }}</th>
+                                        <th>무승부</th>
+                                        <th><a href="{% url 'games:game_detail' attack.pk %}"> 게임 정보</a></th>
+                                    </tr>
+                                {% elif attack.attacker == results.winner and attack.defender == results.loser %}
 
-{% for defense in games_defense %}
-    {% if not defense.completed %}
-        <p>매칭이 안됐으니깐 반격! defense.pk 줘야됨 </p>
+                                    <tr>
+                                        <th>{{ attack.attacker }} vs {{ attack.defender }}</th>
+                                        <th>승리</th>
+                                        <th><a href="{% url 'games:game_detail' attack.pk %}"> 게임 정보</a></th>
+                                    </tr>
+                                {% elif attack.attacker == results.loser and attack.defender == results.winner %}
 
-    {% elif defense.completed %}
-        {% for results in result %}
-            {% if defense.id == results.game %}
-                {% if results.result %}
-                    <p> 무승부</p>
-                {% elif defense.attacker == results.winner and defense.defender == results.loser %}
-                    <p> 패배 </p>
-                {% elif defense.attacker == results.loser and defense.defender == results.winner %}
-                    <p> 승리 </p>
-                {% endif %}
-            {% endif %}
-        {% endfor %}
-    {% endif %}
+                                    <tr>
+                                        <th>{{ attack.attacker }} vs {{ attack.defender }}</th>
+                                        <th>패배</th>
+                                        <th><a href="{% url 'games:game_detail' attack.pk %}"> 게임 정보</a></th>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                {% for defense in games_defense %}
+                    {% if not defense.completed %}
+                        <tr>
+                            <th>{{ defense.attacker }} vs {{ defense.defender }}</th>
+                            <th><a href="{% url 'games:game_defender' defense.pk %}"> 결투 신청하기</a></th>
+                            <th><a href="{% url 'games:game_detail' defense.pk %}"> 게임 정보</a></th>
+                        </tr>
+                    {% elif defense.completed %}
+                        {% for results in result %}
 
-{% endfor %}
+                            {% if defense.id == results.game %}
+                                {% if results.result %}
+                                    <tr>
+                                        <th>{{ defense.attacker }} vs {{ defense.defender }}</th>
+                                        <th>무승부</th>
+                                        <th><a href="{% url 'games:game_detail' defense.pk %}"> 게임 정보</a></th>
+                                    </tr>
+                                {% elif defense.attacker == results.winner and defense.defender == results.loser %}
+
+                                    <tr>
+                                        <th>{{ defense.attacker }} vs {{ defense.defender }}</th>
+                                        <th>패배</th>
+                                        <th><a href="{% url 'games:game_detail' defense.pk %}"> 게임 정보</a></th>
+                                    </tr>
+                                {% elif defense.attacker == results.loser and defense.defender == results.winner %}
+
+                                    <tr>
+                                        <th>{{ defense.attacker }} vs {{ defense.defender }}</th>
+                                        <th>승리</th>
+                                        <th><a href="{% url 'games:game_detail' defense.pk %}"> 게임 정보</a></th>
+                                    </tr>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+
+
+<div class="fixed-footer-text">
+    🍀피로그래밍 21기 카드게임 5조🍀
+</div>
 </body>
 </html>

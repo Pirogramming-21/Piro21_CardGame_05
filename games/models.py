@@ -19,4 +19,4 @@ class Game_Result(models.Model):
     winner_points = models.IntegerField(default=0)
     loser_points = models.IntegerField(default=0)
     result = models.BooleanField(default=False)
-    message = models.CharField(max_length=30)
+    message = models.CharField(max_length=30, default='')
