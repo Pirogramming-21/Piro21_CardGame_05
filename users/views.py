@@ -13,7 +13,7 @@ def signup(request):
         form = UserCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('games:login')  # 메인페이지 URL 연결 수정
+            return redirect('users:login')  # 메인페이지 URL 연결 수정
     else:
         form = UserCreateForm()
     return render(request, 'join.html', {'form': form})
